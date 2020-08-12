@@ -19,7 +19,7 @@ setwd("~/PA_Binomial/outputs")
 dir("~/PA_Binomial/Data/")
 
 ## Set file name --
-filen <- "stereo-BRUVs-SPZ-seag-epower.csv"
+filen <- "stereo-BRUVs-NPZ-seag-epower.csv"
 
 # Load data
 
@@ -72,7 +72,7 @@ dataComponents<-supplyData(
     Impact="Impact"),
   scenario.data=list(
     Number.of.iterations=400,
-    filename="BRUV-SPZ-400it_binomal",
+    filename="BRUV-NPZ-400it_binomal",
     Number.of.Impact.Locations=1,
     Number.of.Control.Locations=2,
     Number.of.sublocations.within.Location="1;2;3",

@@ -19,7 +19,7 @@ setwd("~/PA_Binomial/outputs")
 dir("~/PA_Binomial/Data/")
 
 ## Set file name --
-filen <- "stereo-BRUVs-SPZ-seag-epower.csv"
+filen <- "stereo-BRUVs-SPZclustered-seag-epower.csv"
 
 # Load data
 
@@ -49,7 +49,7 @@ dat <- as.data.frame(df)
 summary(dat)
 
 str(dat)
-
+dat$Transect <- as.factor(dat$Transect)
 
 # Set design
 
@@ -72,7 +72,7 @@ dataComponents<-supplyData(
     Impact="Impact"),
   scenario.data=list(
     Number.of.iterations=400,
-    filename="BRUV-SPZ-400it_binomal",
+    filename="BRUV-SPZclustered-400it_binomal",
     Number.of.Impact.Locations=1,
     Number.of.Control.Locations=2,
     Number.of.sublocations.within.Location="1;2;3",
@@ -91,7 +91,7 @@ dataComponents<-supplyData(
   ncores = 30)
 
 ### The supply data function is not reading the ncores
-dataComponents$ncores <- 30
+#dataComponents$ncores <- 30
 
 require(INLA,quietly=TRUE)
 scenarioParams<<-do.call(powerScenario,list(inputData=dataComponents))
