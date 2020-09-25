@@ -511,3 +511,82 @@ pauv4
 
 ## Save plot
 ggsave(paste(w.directory, "Plots", "TVs_facet_v5.png", sep='/'), plot = pauv4, device = "png", scale =1, dpi = 300)
+
+#####   DTV   ######
+
+### Load data ----
+
+
+o.dir <- paste(w.dir, "outputs", sep='/')
+p.dir <- paste(w.dir, "plots", sep='/')
+
+dir(o.dir)
+
+# Set file name --
+filen <- "DTV-HPZ-400it-binomal-24092020__scenario_power_summary.csv"
+
+
+method <- "Downward Towed Video"
+zone  <- "Habitat Protection Zone"
+
+# set plot name --
+plotn <- gsub("csv$", "png", filen)
+
+
+
+# Load data
+df <- read.csv(paste(o.dir, filen, sep='/'))
+str(df)
+names(df)
+
+# Make the effects column positive
+#df$effect.p <- ifelse(df$effect=1, 
+df$effect.p <- df$effect*(-1)*100
+head(df)
+
+#df$sublocations.within.locations <- as.factor(df$sublocations.within.locations)
+df$trials <- as.factor(df$trials)
+df$times.after <- as.factor(df$times.after)
+df$sublocations.within.locations <- as.factor(df$sublocations.within.locations)
+
+## Plot results
+
+theme_set(theme_bw())
+
+titleplot <- paste(method, zone, sep=' - ')
+
+
+
+### Faceted ###
+
+timesafter <- c(
+  "1" = "1 time", 
+  "2" = "2 times", 
+  "3" = "3 times"
+)
+
+p4 <- ggplot() +
+  #geom_line(aes(y = sig.outcomes, x = effect.p, colour = replicates), data = df, stat="identity", cex = 1) +  # BRUV
+  geom_line(aes(y = sig.outcomes, x = effect.p, color = trials, 
+                linetype = sublocations.within.locations), data = df, stat="identity", 
+            cex = 1, position=position_dodge(w=0.4)) + #TV
+  facet_grid(.~times.after, labeller = as_labeller(timesafter)) +
+  #scale_color_manual(values = c("grey", "yellow","greenyellow", "green4", "blue")) + 
+  #scale_color_manual(values = c("yellow","greenyellow",  "blue3")) +
+  scale_color_manual(values = c("grey60",  "#18BDB0", "#26185F", "#FCFFDD")) +
+  scale_x_continuous (name = "Change in % cover of seagrasses") +
+  scale_y_continuous( name = "Power", limits =c(0,1), breaks = c(0.2,0.4,0.6,0.8,1))+
+  geom_hline(yintercept = 0.8, linetype ="dashed", color = "grey81", size = 1.2) +
+  #labs(color = "Replicates", linetype = "Control locations", title = "National Park Zone - Stereo-BRUVs survey") +
+  labs(color = "Trials", linetype = "No. sublocations", title = titleplot) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"), axis.text.x = element_text(size = 12), axis.text.y = element_text(size = 12),
+        axis.title = element_text(size = 12, face = "bold"),
+        strip.text = element_text(size = 11, face = "bold", color = "grey25"), panel.background = element_rect(color = "black", size = 1.2),
+        strip.background = element_rect(fill = "white", color = NA) , plot.title=element_text(size=14, face = "bold")) 
+#labs(color = "Times after", linetype = "Control locations", title = "BRUV survey")
+p4
+
+## Save plot
+ggsave(paste(p.dir, plotn, sep='/'), plot = p4, device = "png", width = 6.23, height = 4.18, dpi = 300)
+#ggsave(paste(p.dir, plotn, sep='/'), plot = p4, device = "png", scale =1, dpi = 300)
