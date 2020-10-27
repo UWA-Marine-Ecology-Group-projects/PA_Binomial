@@ -523,11 +523,12 @@ p.dir <- paste(w.dir, "plots", sep='/')
 dir(o.dir)
 
 # Set file name --
-filen <- "DTV-HPZ-400it-binomal-24092020__scenario_power_summary.csv"
+filen <- "DTV-MUZ-400it-binomal-22102020__scenario_power_summary.csv"
 
 
 method <- "Downward Towed Video"
-zone  <- "Habitat Protection Zone"
+#zone  <- "Habitat Protection Zone"
+zone <- "Multiple Use Zone"
 
 # set plot name --
 plotn <- gsub("csv$", "png", filen)
