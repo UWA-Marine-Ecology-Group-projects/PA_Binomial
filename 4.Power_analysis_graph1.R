@@ -522,8 +522,8 @@ ggsave(paste(w.directory, "Plots", "TVs_facet_v5.png", sep='/'), plot = pauv4, d
 ### Load data ----
 
 method <- "Downward Towed Video"
-zone  <- "National Park Zone"
-
+#zone  <- "National Park Zone"
+zone <- "Special Purpose Zone"
 
 o.dir <- paste(w.dir, "outputs", sep='/')
 p.dir <- paste(w.dir, "plots", sep='/')
@@ -531,7 +531,7 @@ p.dir <- paste(w.dir, "plots", sep='/')
 dir(o.dir)
 
 # Set file name --
-filen <- "DTV-NPZ-400it-binomal-24092020__scenario_power_summary.csv"
+filen <- "DTV-SPZ-400it-binomal-22102020__scenario_power_summary.csv"
 
 # set plot name --
 plotn <- gsub("csv$", "png", filen)
