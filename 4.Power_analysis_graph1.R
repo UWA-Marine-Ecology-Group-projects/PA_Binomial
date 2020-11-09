@@ -545,7 +545,7 @@ names(df)
 
 # Make the effects column positive
 #df$effect.p <- ifelse(df$effect=1, 
-df$effect.p <- df$effect*(-1)
+df$effect.p <- df$effect*(-1)*100
 head(df)
 
 #df$sublocations.within.locations <- as.factor(df$sublocations.within.locations)
